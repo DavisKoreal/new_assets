@@ -332,7 +332,7 @@ func populate_data_map() {
 		state := state_variables{coin, 0.0, 0}
 		data_map[coin] = state
 	}
-	population_size +=1
+	population_size += 1
 }
 
 // func closealltrades() {
@@ -341,8 +341,6 @@ func populate_data_map() {
 // 	}
 // 	tradingisallowed = false
 // }
-
-
 
 func printvariables() {
 	fmt.Println("The number of records seen is: \t", records_seen)
@@ -422,7 +420,9 @@ func main() {
 		_, message, err := c.Read(context.Background())
 		if err != nil {
 			fmt.Println(err)
-			main()
+			fmt.Println("I have to call main because of an error with the 24 hour token")
+			return
+			//main()
 		}
 		stringmessage := string(message)
 		records_seen += 1
