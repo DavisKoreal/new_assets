@@ -18,7 +18,9 @@ import (
 	"github.com/Kucoin/kucoin-go-sdk"
 
 	"log"
+	"net/http"
 	"os"
+	"strings"
 	//"github.com/rs/zerolog/log"
 	//"github.com/go-gota/gota/dataframe"
 	//"github.com/go-gota/gota/series"
@@ -111,7 +113,7 @@ var target_percentage float64 = 50
 var stop_loss_percentage float64 = -15
 var connection_websocket = false
 
-const Adress = "wss://ws-api.kucoin.com/?token=2neAiuYvAU61ZDXANAGAsiL4-iAExhsBXZxftpOeh_55i3Ysy2q2LEsEWU64mdzUOPusi34M_wGoSf7iNyEWJ751xiGSPyebzyUy2oXl06UwcMPlW-6PiNiYB9J6i9GjsxUuhPw3BlrzazF6ghq4L93hHTSO1paWJCFQSppLjAw=.tfpBWYok2QDijX13JYQ7NQ==&[connectId=Dave2024]"
+var Adress string = "wss://ws-api.kucoin.com/?token=2neAiuYvAU61ZDXANAGAsiL4-iAExhsBXZxftpOeh_55i3Ysy2q2LEsEWU64mdzUOPusi34M_wGoSf7iNyEWJ751xiGSPyebzyUy2oXl06UwcMPlW-6PiNiYB9J6i9GjsxUuhPw3BlrzazF6ghq4L93hHTSO1paWJCFQSppLjAw=.tfpBWYok2QDijX13JYQ7NQ==&[connectId=Dave2024]"
 
 // var number_of_top_to_buy int = 5
 var filter_price_change float64 = 10
@@ -367,6 +369,17 @@ func clear_terminal() {
 	fmt.Println("Output: ", string(out))
 }
 
+func get_the_token() string {
+	// Post data to url
+	var url string = "https://api.kucoin.com/api/v1/bullet-public"
+	resp, err := http.Post(url, "application/json", nil)
+	if err != nil {
+		fmt.Println("Error posting to url: ", err)
+	}
+	res := (strings.Split((strings.Split((resp.Header.Values("Set-Cookie")[2]), ";")[0]), "ken="))[1]
+	return res
+}
+
 var records_seen int = 0
 
 //var nrow row =
@@ -420,9 +433,8 @@ func main() {
 		_, message, err := c.Read(context.Background())
 		if err != nil {
 			fmt.Println(err)
-			fmt.Println("I have to call main because of an error with the 24 hour token")
-			return
-			//main()
+			Adress = "wss://ws-api.kucoin.com/?token=" + get_the_token() + "&[connectId=Dave2024]"
+			main()
 		}
 		stringmessage := string(message)
 		records_seen += 1
