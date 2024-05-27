@@ -342,6 +342,8 @@ func populate_data_map() {
 // 	tradingisallowed = false
 // }
 
+
+
 func printvariables() {
 	fmt.Println("The number of records seen is: \t", records_seen)
 	fmt.Println("Buy trials is: \t", buytrials)
