@@ -418,13 +418,14 @@ func main() {
 		stateprice, _ := strconv.ParseFloat(response.Data.Price, 64)
 		statetime := time.Now().Nanosecond()
 		state := state_variables{response.Subject, stateprice, statetime}
-		data_map[response.Subject] = state
-
 		
+
+
 		_, coin_is_in_map := data_map[response.Subject]
 
 		if !coin_is_in_map {
 			add_new_coin(response.Subject)
+			data_map[response.Subject] = state
 			if !coin_has_been_purchased(response.Subject) && !coin_is_in_file(response.Subject) {
 				if tradingisallowed {
 					go buy(data_map[response.Subject].Subject)
@@ -439,6 +440,7 @@ func main() {
 		}
 
 		if coin_is_in_map {
+			data_map[response.Subject] = state
 			fmt.Println("The coin is in the map. Checking if it is purchased and tracking investment")
 			if coin_has_been_purchased(response.Subject) {
 				track_investment(response.Subject)
