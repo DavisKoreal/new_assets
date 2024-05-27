@@ -205,7 +205,7 @@ func buy(coin_to_buy string) {
 	//fmt.Println("response: ", rsp)
 	dollarsused += 1
 	fmt.Println(coin_to_buy, " has been bought")
-	action := "Bought " + floatString + " of " + coin_to_buy
+	action := "Bought " + floatString + " of " + coin_to_buy + "at price " + strconv.FormatFloat(data_map[coin_to_buy].Price, 'f', 6, 32)
 	log_actions(action)
 }
 
@@ -241,7 +241,7 @@ func sell(coin_to_sell string, number_to_sell string) {
 		return
 	}
 	fmt.Println("response: ", rsp)
-	action := "Sold " + number_to_sell + " of " + coin_to_sell
+	action := "Sold " + number_to_sell + " of " + coin_to_sell + "at price " + strconv.FormatFloat(data_map[coin_to_sell].Price, 'f', 6, 32)
 	log_actions(action)
 }
 
@@ -461,6 +461,7 @@ func main() {
 
 		if !coin_is_in_map {
 			add_new_coin(response.Subject)
+			log_actions("Added " + response.Subject + " to the list of coins")
 			data_map[response.Subject] = state
 			if !coin_has_been_purchased(response.Subject) && !coin_is_in_file(response.Subject) {
 				if tradingisallowed {
