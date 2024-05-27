@@ -1,0 +1,168 @@
+Buying 142.8 of ZBCN-USDT
+Invalid KC-API-TIMESTAMP
+Buying 405.3 of MMM-USDT
+Invalid KC-API-TIMESTAMP
+Buying 0.4 of FURY-USDT
+Invalid KC-API-TIMESTAMP
+Buying 4.7 of ESE-USDT
+Invalid KC-API-TIMESTAMP
+Buying 13.6 of PRE-USDT
+Invalid KC-API-TIMESTAMP
+Buying 2.3 of REQ-USDT
+Invalid KC-API-TIMESTAMP
+Buying 0 of ROUTE-USDT
+Invalid KC-API-TIMESTAMP
+Buying 1.3 of NAVI-USDT
+Invalid KC-API-TIMESTAMP
+Buying 1.4 of PUSH-USDT
+Buying 47.9 of DPR-USDT
+Invalid KC-API-TIMESTAMP
+Invalid KC-API-TIMESTAMP
+Buying 11.2 of MV-USDT
+Invalid KC-API-TIMESTAMP
+Buying 1902.3 of MM-USDT
+Invalid KC-API-TIMESTAMP
+Buying 3.3 of BEFI-USDT
+Invalid KC-API-TIMESTAMP
+Buying 1.5 of PZP-USDT
+Invalid KC-API-TIMESTAMP
+Buying 27.8 of HAKA-USDT
+Invalid KC-API-TIMESTAMP
+Buying 2.8 of SOUL-USDT
+Buying 1896.3 of PSL-USDT
+Invalid KC-API-TIMESTAMP
+Invalid KC-API-TIMESTAMP
+Buying 82.5 of MEW-USDT
+Invalid KC-API-TIMESTAMP
+Buying 162.4 of HIMEEBITS-USDT
+Invalid KC-API-TIMESTAMP
+Buying 39.5 of FITFI-USDT
+Invalid KC-API-TIMESTAMP
+Buying 2.1 of GEEQ-USDT
+Invalid KC-API-TIMESTAMP
+Buying 0.1 of MAHA-USDT
+Invalid KC-API-TIMESTAMP
+Buying 591.3 of SON-USDT
+Buying 0.9 of BMX-USDT
+Buying 19.5 of MAPO-USDT
+The quantity is below the minimum requirement.
+
+Buying 0.5 of W-USDT
+The quantity is below the minimum requirement.
+Buying 7.7 of HIP-USDT
+The quantity is below the minimum requirement.
+Buying 16.6 of GMEE-USDT
+Buying 1072.5 of TIDAL-USDT
+
+Buying 0.7 of OFN-USDT
+The quantity is below the minimum requirement.
+
+Buying 39.5 of FITFI-USDT
+
+Buying 31.5 of CWEB-USDT
+
+Buying 1.1 of PBUX-USDT
+The quantity is below the minimum requirement.
+Buying 83.8 of CCD-USDT
+
+Buying 0.1 of SAFE-USDT
+The quantity is below the minimum requirement.
+Buying 256.1 of SQUAD-USDT
+
+Buying 9.9 of STND-USDT
+
+Buying 0 of ATOM-USDT
+The quantity is invalid.
+Buying 0.3 of FTM-USDT
+Buying 3.3 of NLK-USDT
+Buying 0.2 of FIRE-USDT
+The quantity is below the minimum requirement.
+Buying 0 of XMR-USDT
+Buying 0 of SSV-USDT
+The quantity is invalid.
+The quantity is invalid.
+
+Buying 1.8 of CPOOL-USDT
+
+Buying 0 of QNT-USDT
+The quantity is invalid.
+Buying 17.9 of CKB-USDT
+
+Buying 60.3 of TT-USDT
+The quantity is below the minimum requirement.
+Buying 0.5 of BOSON-USDT
+
+Buying 17.7 of CWAR-USDT
+
+Buying 25 of DGB-USDT
+
+Buying 499.1 of XDB-USDT
+Buying 4 of LAYER-USDT
+
+The quantity increment is invalid.
+Buying 2.6 of LFT-USDT
+
+Buying 0 of GMX-USDT
+Buying 13.8 of SILLY-USDT
+Buying 11.1 of MV-USDT
+The quantity is invalid.
+
+
+Buying 6.8 of CSIX-USDT
+The quantity is below the minimum requirement.
+Buying 19.6 of MAPO-USDT
+Buying 0.4 of POLS-USDT
+
+
+Buying 0.6 of MANA-USDT
+The quantity is below the minimum requirement.
+Buying 1.2 of CGPT-USDT
+
+Buying 32.1 of KPOL-USDT
+The quantity is below the minimum requirement.
+Buying 1.7 of ALEX-USDT
+
+Buying 43.8 of NOT-USDT
+The quantity is below the minimum requirement.
+Buying 2.4 of NGL-USDT
+
+Buying 1.5 of HMND-USDT
+
+Buying 0.4 of AVA-USDT
+
+Buying 20.1 of REV3L-USDT
+The quantity is below the minimum requirement.
+Buying 13.6 of ATEM-USDT
+Buying 490.1 of HIOD-USDT
+
+
+Buying 8.6 of BDX-USDT
+Buying 0.3 of DAO-USDT
+The quantity is below the minimum requirement.
+Buying 13.6 of PRE-USDT
+
+Buying 0.2 of ERG-USDT
+Buying 0.5 of BICO-USDT
+
+
+
+Buying 0 of MOVR-USDT
+The quantity is invalid.
+Buying 485.8 of LBP-USDT
+
+Buying 266.6 of FTM3L-USDT
+
+Buying 0.1 of LYX-USDT
+
+Buying 146.9 of REEF-USDT
+
+Buying 58.6 of BIDP-USDT
+The quantity is below the minimum requirement.
+Buying 0.4 of XAI-USDT
+The quantity is below the minimum requirement.
+Buying 84.2 of HON-USDT
+Buying 6.7 of ROOT-USDT
+
+The quantity is below the minimum requirement.
+Buying 242 of MTV-USDT
+
