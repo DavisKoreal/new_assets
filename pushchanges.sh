@@ -1,4 +1,4 @@
 
 git add .
-git commit -m "Pushing changes to GitHub"
+git commit -m "Message: $1"
 git push
