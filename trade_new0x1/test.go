@@ -104,7 +104,7 @@ func this_coin_is_usdt(subject string) bool {
 var KUCOINAPIKEY = "661bd98603e77600013bfd3d"
 var KUCOINSECRET = "7a0c92b9-69dc-40c0-8a01-30d73f660560"
 var KUCOINPASSWORD = "*9Sd49G.!rt4RC$"
-var tradingisallowed = false
+var tradingisallowed = true
 
 // var tradingdollars string = "1"
 var tradedollarsfloat float64 = 0.3
