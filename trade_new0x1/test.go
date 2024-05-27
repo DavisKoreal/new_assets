@@ -106,6 +106,7 @@ var tradingisallowed = false
 
 // var tradingdollars string = "1"
 var tradedollarsfloat float64 = 0.3
+var population_size int = 0
 var target_percentage float64 = 50
 var stop_loss_percentage float64 = -15
 var connection_websocket = false
@@ -313,6 +314,27 @@ func log_actions(action string) {
 
 }
 
+func populate_data_map() {
+	file, errs := os.Open("COINS.txt")
+	if errs != nil {
+		fmt.Println("Failed to open file:", errs)
+		populate_data_map()
+	}
+
+	defer file.Close()
+	var coin string
+	for {
+		_, errs := fmt.Fscanf(file, "%s\n", &coin)
+		if errs != nil {
+			break
+		}
+		fmt.Println(coin)
+		state := state_variables{coin, 0.0, 0}
+		data_map[coin] = state
+	}
+	population_size +=1
+}
+
 // func closealltrades() {
 // 	for key := range purchase_map {
 // 		sell(purchase_map[key].Subject, strconv.FormatFloat(float64(purchase_map[key].number_bought), 'f', 6, 32))
@@ -330,6 +352,7 @@ func printvariables() {
 	fmt.Println("Target percentage is: ", target_percentage)
 	fmt.Println("Stop loss percentage is: ", stop_loss_percentage)
 	fmt.Println("Tradedollarsfloat is: ", tradedollarsfloat)
+	fmt.Println("Population trials is: ", population_size)
 	fmt.Println("THe lenght of the data map is: ", len(data_map))
 	fmt.Println("\nPurchase map is: ", purchase_map)
 	fmt.Println("\n............")
@@ -351,6 +374,7 @@ var records_seen int = 0
 
 func main() {
 	serverTime(s)
+	populate_data_map()
 	c, _, err := websocket.Dial(context.Background(), Adress, nil)
 	if err != nil {
 		fmt.Println(err)
@@ -418,8 +442,6 @@ func main() {
 		stateprice, _ := strconv.ParseFloat(response.Data.Price, 64)
 		statetime := time.Now().Nanosecond()
 		state := state_variables{response.Subject, stateprice, statetime}
-		
-
 
 		_, coin_is_in_map := data_map[response.Subject]
 
