@@ -420,6 +420,7 @@ func main() {
 		state := state_variables{response.Subject, stateprice, statetime}
 		data_map[response.Subject] = state
 
+		
 		_, coin_is_in_map := data_map[response.Subject]
 
 		if !coin_is_in_map {
