@@ -2,3 +2,5 @@ Added SRBP-USDT to the list of coins
 Added TRIBL-USDT to the list of coins
 Added OPEN-USDT to the list of coins
 Added ZERC-USDT to the list of coins
+Added ZERC-USDT to the list of coins
+Bought 9 of ZERC-USDTat price 0.330990
