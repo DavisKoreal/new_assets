@@ -6,3 +6,5 @@ Added ZERC-USDT to the list of coins
 Bought 9 of ZERC-USDTat price 0.330990
 Added ZERC-USDT to the list of coins
 Bought 9.2 of ZERC-USDTat price 0.324940
+Added ZERC-USDT to the list of coins
+Bought 15.5 of ZERC-USDTat price 0.322300
