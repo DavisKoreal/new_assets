@@ -204,7 +204,7 @@ func buy(coin_to_buy string) {
 	//fmt.Println("response: ", rsp)
 	dollarsused += tradedollarsfloat
 	fmt.Println(coin_to_buy, " has been bought")
-	action := "Bought " + floatString + " of " + coin_to_buy + "at price " + strconv.FormatFloat(data_map[coin_to_buy].Price, 'f', 6, 32)
+	action := "Bought " + floatString + " of " + coin_to_buy + "at price " + strconv.FormatFloat(data_map[coin_to_buy].Price, 'f', 6, 32) + " at time " + time.Now().String()
 	log_actions(action)
 }
 
@@ -241,7 +241,7 @@ func sell(coin_to_sell string, number_to_sell string) {
 		return
 	}
 	fmt.Println("response: ", rsp)
-	action := "Sold " + number_to_sell + " of " + coin_to_sell + "at price " + strconv.FormatFloat(data_map[coin_to_sell].Price, 'f', 6, 32)
+	action := "Sold " + number_to_sell + " of " + coin_to_sell + "at price " + strconv.FormatFloat(data_map[coin_to_sell].Price, 'f', 6, 32) + " at time " + time.Now().String()
 	log_actions(action)
 }
 
@@ -254,13 +254,13 @@ func track_investment(coin_to_track string, current_price float64, start_price f
 
 		if percentgain > target_percentage {
 			sell(coin_to_track, strconv.FormatFloat(number_bought, 'f', 6, 64))
-			log_actions("Target percentage reached. Sold " + strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32) + " of " + coin_to_track + "\n")
+			log_actions("Target percentage reached. Sold " + strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32) + " of " + coin_to_track + " at time " + time.Now().String())
 			delete(purchase_map, coin_to_track)
 			delete(tradestracking, coin_to_track)
 		}
 		if percentgain < stop_loss_percentage {
 			sell(coin_to_track, strconv.FormatFloat(number_bought, 'f', 6, 64))
-			log_actions("Stop loss triggered. Sold " + strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32) + " of " + coin_to_track + "\n")
+			log_actions("Stop loss triggered. Sold " + strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32) + " of " + coin_to_track + " at time " + time.Now().String())
 			delete(purchase_map, coin_to_track)
 			delete(tradestracking, coin_to_track)
 		}
@@ -469,7 +469,7 @@ func main() {
 		if !coin_is_in_map {
 
 			add_new_coin(response.Subject)
-			log_actions("Added " + response.Subject + " to the list of coins")
+			log_actions("Added " + response.Subject + " to the list of coins at time " + time.Now().String())
 			data_map[response.Subject] = state
 			buy(response.Subject)
 			ammount := round_to_one_decimal(tradedollarsfloat / data_map[response.Subject].Price)
