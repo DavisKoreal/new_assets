@@ -104,10 +104,9 @@ func this_coin_is_usdt(subject string) bool {
 var KUCOINAPIKEY = "661bd98603e77600013bfd3d"
 var KUCOINSECRET = "7a0c92b9-69dc-40c0-8a01-30d73f660560"
 var KUCOINPASSWORD = "*9Sd49G.!rt4RC$"
-var tradingisallowed = true
 
 // var tradingdollars string = "1"
-var tradedollarsfloat float64 = 0.3
+var tradedollarsfloat float64 = 3
 var population_size int = 0
 var target_percentage float64 = 50
 var stop_loss_percentage float64 = -15
@@ -203,7 +202,7 @@ func buy(coin_to_buy string) {
 		return
 	}
 	//fmt.Println("response: ", rsp)
-	dollarsused += 1
+	dollarsused += tradedollarsfloat
 	fmt.Println(coin_to_buy, " has been bought")
 	action := "Bought " + floatString + " of " + coin_to_buy + "at price " + strconv.FormatFloat(data_map[coin_to_buy].Price, 'f', 6, 32)
 	log_actions(action)
@@ -217,6 +216,7 @@ func sell(coin_to_sell string, number_to_sell string) {
 		return
 	}
 	defer file.Close()
+
 	p := &kucoin.CreateOrderModel{
 		ClientOid: kucoin.IntToString(time.Now().UnixNano()),
 		Side:      "sell",
@@ -250,13 +250,13 @@ func track_investment(coin_to_track string) {
 	if coin_has_been_tracked(coin_to_track) {
 		percentgain := (data_map[coin_to_track].Price - tradestracking[coin_to_track].start_price) / tradestracking[coin_to_track].start_price * 100
 		if percentgain > target_percentage {
-			go sell(coin_to_track, strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32))
+			sell(coin_to_track, strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32))
 			log_actions("Target percentage reached. Sold " + strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32) + " of " + coin_to_track + "\n")
 			delete(purchase_map, coin_to_track)
 			delete(tradestracking, coin_to_track)
 		}
 		if percentgain < stop_loss_percentage {
-			go sell(coin_to_track, strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32))
+			sell(coin_to_track, strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32))
 			log_actions("Stop loss triggered. Sold " + strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32) + " of " + coin_to_track + "\n")
 			delete(purchase_map, coin_to_track)
 			delete(tradestracking, coin_to_track)
@@ -279,27 +279,27 @@ func add_new_coin(new_coin string) {
 	}
 }
 
-func coin_is_in_file(coin_to_check string) bool {
-	file, errs := os.Open("COINS.txt")
-	if errs != nil {
-		fmt.Println("Failed to open file:", errs)
-		coin_is_in_file(coin_to_check)
-	}
+// func coin_is_in_file(coin_to_check string) bool {
+// 	file, errs := os.Open("COINS.txt")
+// 	if errs != nil {
+// 		fmt.Println("Failed to open file:", errs)
+// 		coin_is_in_file(coin_to_check)
+// 	}
 
-	defer file.Close()
-	var coin string
-	for {
-		_, errs := fmt.Fscanf(file, "%s\n", &coin)
-		if errs != nil {
-			break
-		}
-		fmt.Println(coin)
-		if coin == coin_to_check {
-			return true
-		}
-	}
-	return false
-}
+// 	defer file.Close()
+// 	var coin string
+// 	for {
+// 		_, errs := fmt.Fscanf(file, "%s\n", &coin)
+// 		if errs != nil {
+// 			break
+// 		}
+// 		fmt.Println(coin)
+// 		if coin == coin_to_check {
+// 			return true
+// 		}
+// 	}
+// 	return false
+// }
 
 func log_actions(action string) {
 	file, errs := os.OpenFile("LOGS.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
@@ -347,7 +347,6 @@ func populate_data_map() {
 func printvariables() {
 	fmt.Println("The number of records seen is: \t", records_seen)
 	fmt.Println("Buy trials is: \t", buytrials)
-	fmt.Println("Tradingallowed:\t ", tradingisallowed)
 	fmt.Println("Connection is: ", connection_websocket)
 	fmt.Println("Dollars used is: ", dollarsused)
 	fmt.Println("Filter price change is: ", filter_price_change)
@@ -436,6 +435,8 @@ func main() {
 			Adress = "wss://ws-api.kucoin.com/?token=" + get_the_token() + "&[connectId=Dave2024]"
 			main()
 		}
+
+
 		stringmessage := string(message)
 		records_seen += 1
 		var response response_struct
@@ -449,29 +450,30 @@ func main() {
 			return
 		}
 
+
 		if !this_coin_is_usdt(response.Subject) {
 			continue
 		}
+
 
 		stateprice, _ := strconv.ParseFloat(response.Data.Price, 64)
 		statetime := time.Now().Nanosecond()
 		state := state_variables{response.Subject, stateprice, statetime}
 
-		_, coin_is_in_map := data_map[response.Subject]
 
+
+
+		_, coin_is_in_map := data_map[response.Subject]
 		if !coin_is_in_map {
+
 			add_new_coin(response.Subject)
 			log_actions("Added " + response.Subject + " to the list of coins")
 			data_map[response.Subject] = state
-			if !coin_has_been_purchased(response.Subject) && !coin_is_in_file(response.Subject) {
-				if tradingisallowed {
-					go buy(data_map[response.Subject].Subject)
-				}
-				ammount := round_to_one_decimal(tradedollarsfloat / data_map[response.Subject].Price)
-				purchase_map[data_map[response.Subject].Subject] = bought_coins{data_map[response.Subject].Subject, float32(ammount)}
-				buytrials += 1
-				tradestracking[data_map[response.Subject].Subject] = investment_track{data_map[response.Subject].Subject, 0.0, data_map[response.Subject].Price}
-			}
+			go buy(response.Subject)
+			ammount := round_to_one_decimal(tradedollarsfloat / data_map[response.Subject].Price)
+			purchase_map[data_map[response.Subject].Subject] = bought_coins{data_map[response.Subject].Subject, float32(ammount)}
+			buytrials += 1
+			tradestracking[data_map[response.Subject].Subject] = investment_track{data_map[response.Subject].Subject, 0.0, data_map[response.Subject].Price}
 
 			continue
 		}
@@ -483,6 +485,10 @@ func main() {
 				track_investment(response.Subject)
 			}
 		}
+
+
+
+
 	}
 
 }
