@@ -190,7 +190,7 @@ func buy(coin_to_buy string) {
 		return
 	}
 
-	rsp, err := s.CreateOrder(p) 
+	rsp, err := s.CreateOrder(p)
 	if err != nil {
 		fmt.Println(err)
 		fmt.Println("The coin ", coin_to_buy, " has not been bought")
@@ -360,7 +360,7 @@ func printvariables() {
 	fmt.Println("THe lenght of the data map is: ", len(data_map))
 	if len(tradestracking) > 0 {
 		for key := range tradestracking {
-			fmt.Println("Coin: ", key, "    Gain : ", tradestracking[key].Percentgain, "percent")
+			fmt.Println("Coin: ", key, " StartPrice", tradestracking[key].start_price, " CurrentPrice ", data_map[key].Price, " Gain : ", tradestracking[key].Percentgain, "percent")
 		}
 	}
 	fmt.Println("\n............")
@@ -444,7 +444,6 @@ func main() {
 			main()
 		}
 
-
 		stringmessage := string(message)
 		records_seen += 1
 		var response response_struct
@@ -458,18 +457,13 @@ func main() {
 			return
 		}
 
-
 		if !this_coin_is_usdt(response.Subject) {
 			continue
 		}
 
-
 		stateprice, _ := strconv.ParseFloat(response.Data.Price, 64)
 		statetime := time.Now().Nanosecond()
 		state := state_variables{response.Subject, stateprice, statetime}
-
-
-
 
 		_, coin_is_in_map := data_map[response.Subject]
 		if !coin_is_in_map {
@@ -495,9 +489,6 @@ func main() {
 				track_investment(response.Subject, stateprice, start_price, number_bought)
 			}
 		}
-
-
-
 
 	}
 
