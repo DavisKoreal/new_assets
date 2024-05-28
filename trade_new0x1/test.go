@@ -75,7 +75,7 @@ type state_variables struct {
 
 type bought_coins struct {
 	Subject       string
-	number_bought float32
+	number_bought float64
 }
 
 type investment_track struct {
@@ -245,18 +245,21 @@ func sell(coin_to_sell string, number_to_sell string) {
 	log_actions(action)
 }
 
-func track_investment(coin_to_track string) {
+func track_investment(coin_to_track string, current_price float64, start_price float64, number_bought float64) {
 
 	if coin_has_been_tracked(coin_to_track) {
-		percentgain := (data_map[coin_to_track].Price - tradestracking[coin_to_track].start_price) / tradestracking[coin_to_track].start_price * 100
+
+		percentgain := (current_price - start_price) / start_price * 100
+		tradestracking[coin_to_track] = investment_track{coin_to_track, percentgain, start_price}
+
 		if percentgain > target_percentage {
-			sell(coin_to_track, strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32))
+			sell(coin_to_track, strconv.FormatFloat(number_bought, 'f', 6, 64))
 			log_actions("Target percentage reached. Sold " + strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32) + " of " + coin_to_track + "\n")
 			delete(purchase_map, coin_to_track)
 			delete(tradestracking, coin_to_track)
 		}
 		if percentgain < stop_loss_percentage {
-			sell(coin_to_track, strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32))
+			sell(coin_to_track, strconv.FormatFloat(number_bought, 'f', 6, 64))
 			log_actions("Stop loss triggered. Sold " + strconv.FormatFloat(float64(purchase_map[coin_to_track].number_bought), 'f', 6, 32) + " of " + coin_to_track + "\n")
 			delete(purchase_map, coin_to_track)
 			delete(tradestracking, coin_to_track)
@@ -476,9 +479,9 @@ func main() {
 			data_map[response.Subject] = state
 			buy(response.Subject)
 			ammount := round_to_one_decimal(tradedollarsfloat / data_map[response.Subject].Price)
-			purchase_map[data_map[response.Subject].Subject] = bought_coins{data_map[response.Subject].Subject, float32(ammount)}
+			purchase_map[response.Subject] = bought_coins{response.Subject, ammount}
 			buytrials += 1
-			tradestracking[data_map[response.Subject].Subject] = investment_track{data_map[response.Subject].Subject, 0.0, data_map[response.Subject].Price}
+			tradestracking[response.Subject] = investment_track{response.Subject, 0.0, stateprice}
 
 			continue
 		}
@@ -487,7 +490,9 @@ func main() {
 			data_map[response.Subject] = state
 			fmt.Println("The coin is in the map. Checking if it is purchased and tracking investment")
 			if coin_has_been_purchased(response.Subject) {
-				track_investment(response.Subject)
+				number_bought := purchase_map[response.Subject].number_bought
+				start_price := tradestracking[response.Subject].start_price
+				track_investment(response.Subject, stateprice, start_price, number_bought)
 			}
 		}
 
