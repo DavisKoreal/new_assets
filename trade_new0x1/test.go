@@ -355,7 +355,11 @@ func printvariables() {
 	fmt.Println("Tradedollarsfloat is: ", tradedollarsfloat)
 	fmt.Println("Population trials is: ", population_size)
 	fmt.Println("THe lenght of the data map is: ", len(data_map))
-	fmt.Println("\nPurchase map is: ", purchase_map)
+	if len(tradestracking) > 0 {
+		for key := range tradestracking {
+			fmt.Println("Coin: ", key, "    Gain : ", tradestracking[key].Percentgain, "percent")
+		}
+	}
 	fmt.Println("\n............")
 }
 
@@ -387,6 +391,7 @@ var records_seen int = 0
 func main() {
 	serverTime(s)
 	populate_data_map()
+
 	c, _, err := websocket.Dial(context.Background(), Adress, nil)
 	if err != nil {
 		fmt.Println(err)
@@ -424,7 +429,7 @@ func main() {
 	}
 
 	//reading the responseonse from the channel
-	for i := 0; i < 10000000; i++ {
+	for i := 2; i > 1; i++ {
 
 		clear_terminal()
 		printvariables()
@@ -469,7 +474,7 @@ func main() {
 			add_new_coin(response.Subject)
 			log_actions("Added " + response.Subject + " to the list of coins")
 			data_map[response.Subject] = state
-			go buy(response.Subject)
+			buy(response.Subject)
 			ammount := round_to_one_decimal(tradedollarsfloat / data_map[response.Subject].Price)
 			purchase_map[data_map[response.Subject].Subject] = bought_coins{data_map[response.Subject].Subject, float32(ammount)}
 			buytrials += 1
