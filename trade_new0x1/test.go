@@ -106,7 +106,7 @@ var KUCOINSECRET = "7a0c92b9-69dc-40c0-8a01-30d73f660560"
 var KUCOINPASSWORD = "*9Sd49G.!rt4RC$"
 
 // var tradingdollars string = "1"
-var tradedollarsfloat float64 = 3
+var tradedollarsfloat float64 = 5
 var population_size int = 0
 var target_percentage float64 = 50
 var stop_loss_percentage float64 = -15
@@ -190,7 +190,7 @@ func buy(coin_to_buy string) {
 		return
 	}
 
-	rsp, err := s.CreateOrder(p)
+	rsp, err := s.CreateOrder(p) 
 	if err != nil {
 		fmt.Println(err)
 		fmt.Println("The coin ", coin_to_buy, " has not been bought")
